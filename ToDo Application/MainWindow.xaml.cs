@@ -22,8 +22,6 @@ namespace ToDo_Application
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            ((INotifyCollectionChanged)todoData.Items).CollectionChanged += OnToDoDataCollectionChanged;
-
             sortTasks.SelectionChanged += OnSortTasksSelectionChanged;
 
             LoadToDoTasks();
@@ -33,9 +31,20 @@ namespace ToDo_Application
         {
             _db.ToDoTasks.Load();
             BindingList<ToDoTask> tasks = _db.ToDoTasks.Local.ToBindingList();
-            todoData.ItemsSource = tasks;
+            tasks.ListChanged += OnTasksListChanged;
 
+            todoData.ItemsSource = tasks;
+            
             NoToDoDataMessageVisibilityUpdate();
+        }
+
+        private void OnTasksListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemChanged || e.ListChangedType == ListChangedType.ItemDeleted)
+            {
+                SortTasksList();
+                NoToDoDataMessageVisibilityUpdate();
+            }
         }
 
         private void OnSortTasksSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -59,15 +68,6 @@ namespace ToDo_Application
                     break;
                 default:
                     break;
-            }
-        }
-
-        private void OnToDoDataCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                SortTasksList();
-                NoToDoDataMessageVisibilityUpdate();
             }
         }
 
