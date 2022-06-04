@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data.Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,17 +33,18 @@ namespace ToDo_Application
             tasks.ListChanged += OnTasksListChanged;
 
             todoData.ItemsSource = tasks;
-            
+
             NoToDoDataMessageVisibilityUpdate();
         }
 
         private void OnTasksListChanged(object sender, ListChangedEventArgs e)
         {
-            if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemChanged || e.ListChangedType == ListChangedType.ItemDeleted)
+            if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemChanged)
             {
                 SortTasksList();
-                NoToDoDataMessageVisibilityUpdate();
             }
+
+            NoToDoDataMessageVisibilityUpdate();
         }
 
         private void OnSortTasksSelectionChanged(object sender, SelectionChangedEventArgs e)
