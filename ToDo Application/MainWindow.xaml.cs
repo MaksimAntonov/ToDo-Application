@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,10 +50,14 @@ namespace ToDo_Application
 
         private void OnSortTasksSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            string tagValue = ((ComboBoxItem)comboBox?.SelectedItem).Tag.ToString();
+            int tagValue = 0;
 
-            switch (int.Parse(tagValue))
+            if (sender is ComboBox comboBox && comboBox.SelectedItem is ComboBoxItem comboBoxItem)
+            {
+                tagValue = Convert.ToInt32(comboBoxItem.Tag);
+            }
+
+            switch (tagValue)
             {
                 case 1:
                     SetSortTasks("Deadline", ListSortDirection.Ascending);
