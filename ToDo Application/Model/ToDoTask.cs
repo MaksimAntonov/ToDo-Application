@@ -11,7 +11,7 @@ namespace ToDo_Application.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ToDoTask():this("", "", DateTime.Now) { }
+        public ToDoTask() : this("", "", DateTime.Now) { }
 
         public ToDoTask(string title, string task, DateTime deadline)
         {
@@ -22,7 +22,7 @@ namespace ToDo_Application.Model
 
         public string Title
         {
-            get { return _title; }
+            get => _title;
             set
             {
                 _title = value;
@@ -32,7 +32,7 @@ namespace ToDo_Application.Model
 
         public string Task
         {
-            get { return _task; }
+            get => _task;
             set
             {
                 _task = value;
@@ -42,7 +42,7 @@ namespace ToDo_Application.Model
 
         public DateTime Deadline
         {
-            get { return _deadline; }
+            get => _deadline;
             set
             {
                 _deadline = value;

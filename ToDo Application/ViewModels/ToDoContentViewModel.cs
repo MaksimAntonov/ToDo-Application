@@ -1,12 +1,14 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Services.Dialogs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Services.Dialogs;
+
 using ToDo_Application.Model;
 
 namespace ToDo_Application.ViewModels
@@ -22,14 +24,14 @@ namespace ToDo_Application.ViewModels
 
         #region Properties
         public List<ToDoTask> ToDoTasks { get => _toDoTasks; set => SetProperty(ref _toDoTasks, value); }
-        public int SortTypeIndex 
-        { 
+        public int SortTypeIndex
+        {
             get => _sortTypeIndex;
-            set 
-            { 
+            set
+            {
                 SetProperty(ref _sortTypeIndex, value);
                 LoadTasks().Await();
-            } 
+            }
         }
         #endregion
 
@@ -59,27 +61,14 @@ namespace ToDo_Application.ViewModels
         #region Methods
         private async Task LoadTasks()
         {
-            IOrderedQueryable<ToDoTask> toDoTasks;
-
-            switch (SortTypeIndex)
+            IOrderedQueryable<ToDoTask> toDoTasks = SortTypeIndex switch
             {
-                case 1:
-                    toDoTasks = _context.ToDoTasks.OrderBy(t => t.Deadline);
-                    break;
-                case 2:
-                    toDoTasks = _context.ToDoTasks.OrderByDescending(t => t.Deadline);
-                    break;
-                case 3:
-                    toDoTasks = _context.ToDoTasks.OrderBy(t => t.Title);
-                    break;
-                case 4:
-                    toDoTasks = _context.ToDoTasks.OrderByDescending(t => t.Title);
-                    break;
-                default:
-                    toDoTasks = _context.ToDoTasks;
-                    break;
-            }
-
+                1 => _context.ToDoTasks.OrderBy(t => t.Deadline),
+                2 => _context.ToDoTasks.OrderByDescending(t => t.Deadline),
+                3 => _context.ToDoTasks.OrderBy(t => t.Title),
+                4 => _context.ToDoTasks.OrderByDescending(t => t.Title),
+                _ => _context.ToDoTasks,
+            };
             ToDoTasks = await toDoTasks.ToListAsync();
         }
 
@@ -137,7 +126,7 @@ namespace ToDo_Application.ViewModels
 
         private void SortTasks(int sortIndex)
         {
-            
+
         }
         #endregion
     }

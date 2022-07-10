@@ -1,12 +1,13 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+
 using Prism.Ioc;
-using ToDo_Application.Views;
+
 using ToDo_Application.Dialogs.Views;
+using ToDo_Application.Views;
 
 namespace ToDo_Application
 {
-   public partial class App
+    public partial class App
     {
         protected override Window CreateShell()
         {

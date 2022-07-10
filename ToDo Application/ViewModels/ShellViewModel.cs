@@ -1,7 +1,9 @@
-﻿using Prism.Commands;
+﻿using System.Windows.Input;
+
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using System.Windows.Input;
+
 using ToDo_Application.Enums;
 using ToDo_Application.Views;
 
@@ -29,7 +31,7 @@ namespace ToDo_Application.ViewModels
         }
 
         #region Methods
-        private void PerformOnLoadedEvent() 
+        private void PerformOnLoadedEvent()
         {
             _regionManager.RequestNavigate(ShellRegions.Content, nameof(ToDoContent));
         }

@@ -1,12 +1,10 @@
-﻿using Prism.Commands;
+﻿using System;
+using System.Windows.Input;
+
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+
 using ToDo_Application.Model;
 
 namespace ToDo_Application.Dialogs.ViewModels
