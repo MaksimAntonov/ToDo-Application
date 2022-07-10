@@ -1,17 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using Prism.Ioc;
+using ToDo_Application.Views;
+using ToDo_Application.Dialogs.Views;
 
 namespace ToDo_Application
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
-    public partial class App : Application
+   public partial class App
     {
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<Shell>();
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterSingleton<ToDoContext>();
+
+            containerRegistry.RegisterForNavigation<ToDoContent>();
+
+            containerRegistry.RegisterDialog<AddEditToDoTask>();
+        }
     }
 }

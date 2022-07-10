@@ -11,7 +11,7 @@ namespace ToDo_Application.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ToDoTask() { }
+        public ToDoTask():this("", "", DateTime.Now) { }
 
         public ToDoTask(string title, string task, DateTime deadline)
         {
